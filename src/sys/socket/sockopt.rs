@@ -214,6 +214,7 @@ macro_rules! sockopt_impl {
  */
 
 sockopt_impl!(Both, ReuseAddr, libc::SOL_SOCKET, libc::SO_REUSEADDR, bool);
+#[cfg(not(target_os = "illumos"))]
 sockopt_impl!(Both, ReusePort, libc::SOL_SOCKET, libc::SO_REUSEPORT, bool);
 sockopt_impl!(Both, TcpNoDelay, libc::IPPROTO_TCP, libc::TCP_NODELAY, bool);
 sockopt_impl!(Both, Linger, libc::SOL_SOCKET, libc::SO_LINGER, libc::linger);

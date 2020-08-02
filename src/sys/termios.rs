@@ -515,7 +515,7 @@ libc_enum! {
         VINTR,
         VKILL,
         VLNEXT,
-        #[cfg(not(all(target_os = "linux", target_arch = "sparc64")))]
+        #[cfg(not(any(target_os = "illumos", all(target_os = "linux", target_arch = "sparc64"))))]
         VMIN,
         VQUIT,
         VREPRINT,
@@ -532,7 +532,7 @@ libc_enum! {
         VSWTC,
         #[cfg(target_os = "haiku")]
         VSWTCH,
-        #[cfg(not(all(target_os = "linux", target_arch = "sparc64")))]
+        #[cfg(not(any(target_os = "illumos", all(target_os = "linux", target_arch = "sparc64"))))]
         VTIME,
         VWERASE,
         #[cfg(target_os = "dragonfly")]
@@ -540,7 +540,7 @@ libc_enum! {
     }
 }
 
-#[cfg(all(target_os = "linux", target_arch = "sparc64"))]
+#[cfg(any(target_os = "illumos", all(target_os = "linux", target_arch = "sparc64")))]
 impl SpecialCharacterIndices {
     pub const VMIN: SpecialCharacterIndices = SpecialCharacterIndices::VEOF;
     pub const VTIME: SpecialCharacterIndices = SpecialCharacterIndices::VEOL;

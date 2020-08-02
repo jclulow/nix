@@ -38,6 +38,10 @@ cfg_if! {
         unsafe fn errno_location() -> *mut c_int {
             libc::__errno()
         }
+    } else if #[cfg(target_os = "illumos")] {
+        unsafe fn errno_location() -> *mut c_int {
+            libc::___errno()
+        }
     } else if #[cfg(any(target_os = "linux", target_os = "redox"))] {
         unsafe fn errno_location() -> *mut c_int {
             libc::__errno_location()

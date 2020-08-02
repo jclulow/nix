@@ -2565,11 +2565,11 @@ impl From<&libc::passwd> for User {
                 shell: PathBuf::from(OsStr::from_bytes(CStr::from_ptr((*pw).pw_shell).to_bytes())),
                 uid: Uid::from_raw((*pw).pw_uid),
                 gid: Gid::from_raw((*pw).pw_gid),
-                #[cfg(not(any(target_os = "android", target_os = "linux")))]
+                #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
                 class: CString::new(CStr::from_ptr((*pw).pw_class).to_bytes()).unwrap(),
-                #[cfg(not(any(target_os = "android", target_os = "linux")))]
+                #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
                 change: (*pw).pw_change,
-                #[cfg(not(any(target_os = "android", target_os = "linux")))]
+                #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
                 expire: (*pw).pw_expire
             }
         }
