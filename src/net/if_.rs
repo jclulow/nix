@@ -245,25 +245,5 @@ libc_bitflags!(
         /// Interface is offline
         #[cfg(any(target_os = "solaris", target_os = "illumos"))]
         IFF_OFFLINE;
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_COS_ENABLED;
-        /// Prefer as source addr.
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_PREFERRED;
-        /// RFC3041
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_TEMPORARY;
-        /// MTU set with SIOCSLIFMTU
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_FIXEDMTU;
-        /// Cannot send / receive packets
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_VIRTUAL;
-        /// Local address in use
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_DUPLICATE;
-        /// IPMP IP interface
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
-        IFF_IPMP;
     }
 );

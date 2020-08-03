@@ -906,6 +906,7 @@ pub fn sethostname<S: AsRef<OsStr>>(name: S) -> Result<()> {
         if #[cfg(any(target_os = "dragonfly",
                      target_os = "freebsd",
                      target_os = "ios",
+                     target_os = "illumos",
                      target_os = "macos", ))] {
             type sethostname_len_t = c_int;
         } else {
@@ -1475,6 +1476,7 @@ pub fn setgroups(groups: &[Gid]) -> Result<()> {
                      target_os = "ios",
                      target_os = "macos",
                      target_os = "netbsd",
+                     target_os = "illumos",
                      target_os = "openbsd"))] {
             type setgroups_ngroups_t = c_int;
         } else {
@@ -1511,7 +1513,7 @@ pub fn setgroups(groups: &[Gid]) -> Result<()> {
 /// and `setgroups()`. Additionally, while some implementations will return a
 /// partial list of groups when `NGROUPS_MAX` is exceeded, this implementation
 /// will only ever return the complete list or else an error.
-#[cfg(not(any(target_os = "ios", target_os = "macos", target_os = "redox")))]
+#[cfg(not(any(target_os = "ios", target_os = "macos", target_os = "redox", target_os = "illumos")))]
 pub fn getgrouplist(user: &CStr, group: Gid) -> Result<Vec<Gid>> {
     let ngroups_max = match sysconf(SysconfVar::NGROUPS_MAX) {
         Ok(Some(n)) => n as c_int,
@@ -2542,13 +2544,13 @@ pub struct User {
     /// Path to shell
     pub shell: PathBuf,
     /// Login class
-    #[cfg(not(any(target_os = "android", target_os = "linux")))]
+    #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
     pub class: CString,
     /// Last password change
-    #[cfg(not(any(target_os = "android", target_os = "linux")))]
+    #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
     pub change: libc::time_t,
     /// Expiration time of account
-    #[cfg(not(any(target_os = "android", target_os = "linux")))]
+    #[cfg(not(any(target_os = "android", target_os = "linux", target_os = "illumos")))]
     pub expire: libc::time_t
 }
 

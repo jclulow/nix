@@ -184,6 +184,7 @@ impl Entry {
     /// notably, some Linux filesystems don't implement this. The caller should use `stat` or
     /// `fstat` if this returns `None`.
     pub fn file_type(&self) -> Option<Type> {
+        #[cfg(not(target_os = "illumos"))]
         match self.0.d_type {
             libc::DT_FIFO => Some(Type::Fifo),
             libc::DT_CHR => Some(Type::CharacterDevice),
@@ -194,5 +195,9 @@ impl Entry {
             libc::DT_SOCK => Some(Type::Socket),
             /* libc::DT_UNKNOWN | */ _ => None,
         }
+
+        // illumos systems do not have the d_type member at all:
+        #[cfg(target_os = "illumos")]
+        None
     }
 }
